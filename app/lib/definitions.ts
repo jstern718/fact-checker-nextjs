@@ -2,7 +2,7 @@
 // It describes the shape of the data, and what data type each property should accept.
 // For simplicity of teaching, we're manually defining these types.
 // However, these types are generated automatically if you're using an ORM such as Prisma.
-export type User = {
+export type Users = {
   username: string;
   firstName: string;
   lastName: string;
@@ -11,11 +11,11 @@ export type User = {
   admin: boolean;
 };
 
-export type Topic = {
+export type Topics = {
     topicName: string;
 };
 
-export type Post = {
+export type Posts = {
     id: string;
     username: string;
     topicName: string;

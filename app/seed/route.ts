@@ -5,8 +5,6 @@ import { v4 as uuidv4 } from 'uuid';
 
 const client = await db.connect();
 
-
-
 async function seedUsers() {
   await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
   await client.sql`
@@ -24,7 +22,7 @@ async function seedUsers() {
     users.map(async (user) => {
       const hashedPassword = await bcrypt.hash(user.password, 10);
       return client.sql`
-        INSERT INTO users (id, name, firstName, lastName, email, password, admin)
+        INSERT INTO users (username, firstName, lastName, email, password, admin)
         VALUES (${user.username}, ${user.firstName}, ${user.lastName}, ${user.email}, ${hashedPassword}, ${user.admin})
       `;
     }),
@@ -39,8 +37,7 @@ async function seedTopics() {
   await client.sql`
     CREATE TABLE IF NOT EXISTS topics (
       topicName VARCHAR(255) PRIMARY KEY,
-        CONSTRAINT lower_name CHECK (name = LOWER(name)
-    )
+      CONSTRAINT lower_name CHECK (topicName = LOWER(topicName))
     );
   `;
 
@@ -69,28 +66,31 @@ async function seedPosts() {
     );
   `;
 
-  const insertedCustomers = await Promise.all(
+  const insertedPosts = await Promise.all(
     posts.map(
       (post) => client.sql`
         INSERT INTO posts (id, username, topicName, date, content)
-        VALUES (${uuidv4()}, ${post.username}}, ${post.topicName}, "1/16/2024", post.content)
+        VALUES (${uuidv4()}, ${post.username}, ${post.topicName}, '2024-01-16', ${post.content})
         ON CONFLICT (id) DO NOTHING;
       `,
     ),
   );
 
-  return insertedCustomers;
+  return insertedPosts;
 }
 
 export async function GET() {
   try {
+    console.log("seed try runs")
     await client.sql`BEGIN`;
     await seedUsers();
     await seedTopics();
     await seedPosts();
     await client.sql`COMMIT`;
+    console.log("seed try finishes")
 
   } catch (error) {
+    console.log("seed try fails")
     await client.sql`ROLLBACK`;
     return Response.json({ error }, { status: 500 });
   }

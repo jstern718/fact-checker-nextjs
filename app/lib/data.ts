@@ -1,5 +1,7 @@
 import { sql } from '@vercel/postgres';
 import {
+  Topics,
+  Posts,
   TopicsField,
   TopicsTableType,
   PostForm,
@@ -158,6 +160,20 @@ export async function fetchTopics() {
   } catch (err) {
     console.error('Database Error:', err);
     throw new Error('Failed to fetch all topics.');
+  }
+}
+
+export async function fetchPosts() {
+  try {
+    const data = await sql`
+      SELECT id, username, topicName, date, content
+      FROM posts
+      ORDER BY date DESC`;
+
+    return data.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch posts.');
   }
 }
 

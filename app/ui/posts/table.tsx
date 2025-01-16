@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { UpdatePost, DeletePost } from '@/app/ui/posts/buttons';
 import { formatDateToLocal } from '@/app/lib/utils';
 import { fetchFilteredPosts } from '@/app/lib/data';
+import type { PostsTable } from '@/app/lib/definitions';
 
 import { useEffect, useState } from 'react';
 
@@ -14,7 +15,7 @@ export default function PostsTable({
   query: string;
   currentPage: number;
 }) {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<PostsTable[]>([]);
 
   useEffect(() => {
     async function fetchData() {

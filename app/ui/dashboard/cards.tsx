@@ -20,9 +20,7 @@ export default async function CardWrapper() {
   } = await fetchCardData();
   return (
     <>
-      {/* NOTE: Uncomment this code in Chapter 9 */}
-
-
+      <Card title="Posts" value={numberOfPosts} type="posts" />
     </>
   );
 }
