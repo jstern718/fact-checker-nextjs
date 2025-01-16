@@ -2,18 +2,18 @@ import Image from 'next/image';
 import { lusitana } from '@/app/ui/fonts';
 import Search from '@/app/ui/search';
 import {
-  CustomersTableType,
-  FormattedCustomersTable,
+  TopicsTableType,
+  FormattedTopicsTable,
 } from '@/app/lib/definitions';
 
 export default async function CustomersTable({
   customers,
 }: {
-  customers: FormattedCustomersTable[];
+  customers: FormattedTopicsTable[];
 }) {
   return (
     <div className="w-full">
-      <h1 className={`${lusitana.className} mb-8 text-xl md:text-2xl`}>
+      {/* <h1 className={`${lusitana.className} mb-8 text-xl md:text-2xl`}>
         Customers
       </h1>
       <Search placeholder="Search customers..." />
@@ -117,7 +117,7 @@ export default async function CustomersTable({
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

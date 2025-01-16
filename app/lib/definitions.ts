@@ -44,7 +44,7 @@ export type PostsTable = {
   username: string;
   topicName: string;
   date: string;
-  contents: string;
+  content: string;
 };
 
 export type TopicsTableType = {

@@ -29,7 +29,7 @@ import {
 export async function fetchLatestPosts() {
   try {
     const data = await sql<LatestPostRaw>`
-      SELECT posts.id, posts.username, posts.date, posts.topicName, posts.contents
+      SELECT posts.id, posts.username, posts.date, posts.topicName, posts.content
       FROM posts
       ORDER BY posts.date DESC
       LIMIT 5`;
