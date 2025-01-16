@@ -4,6 +4,16 @@ import { invoices, customers, revenue, users } from '../lib/placeholder-data';
 
 const client = await db.connect();
 
+async function seedDrop() {
+  console.log("seed drop")
+  await client.sql`
+    DROP TABLE IF EXISTS users;
+    DROP TABLE IF EXISTS invoices;
+    DROP TABLE IF EXISTS customers;
+    DROP TABLE IF EXISTS revenue;
+  `;
+}
+
 async function seedUsers() {
   await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
   await client.sql`
