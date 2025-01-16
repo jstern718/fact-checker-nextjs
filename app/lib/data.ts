@@ -5,8 +5,7 @@ import {
   PostForm,
   PostsTable,
   LatestPostRaw,
-} from './definitions';
-import { formatCurrency } from './utils';
+} from './definitions';;
 
 // export async function fetchRevenue() {
 //   try {
