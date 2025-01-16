@@ -3,86 +3,66 @@
 // For simplicity of teaching, we're manually defining these types.
 // However, these types are generated automatically if you're using an ORM such as Prisma.
 export type User = {
-  id: string;
-  name: string;
+  username: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
+  admin: boolean;
 };
 
-export type Customer = {
-  id: string;
-  name: string;
-  email: string;
-  image_url: string;
+export type Topic = {
+    topicName: string;
 };
 
-export type Invoice = {
+export type Post = {
+    id: string;
+    username: string;
+    topicName: string;
+    date: string;
+    contents: string;
+};
+
+// export type Revenue = {
+//   month: string;
+//   revenue: number;
+// };
+
+export type LatestPost = {
   id: string;
-  customer_id: string;
-  amount: number;
+  username: string;
+  topicName: string;
   date: string;
-  // In TypeScript, this is called a string union type.
-  // It means that the "status" property can only be one of the two strings: 'pending' or 'paid'.
-  status: 'pending' | 'paid';
-};
-
-export type Revenue = {
-  month: string;
-  revenue: number;
-};
-
-export type LatestInvoice = {
-  id: string;
-  name: string;
-  image_url: string;
-  email: string;
-  amount: string;
+  content: string;
 };
 
 // The database returns a number for amount, but we later format it to a string with the formatCurrency function
-export type LatestInvoiceRaw = Omit<LatestInvoice, 'amount'> & {
-  amount: number;
-};
+export type LatestPostRaw = LatestPost;
 
-export type InvoicesTable = {
+export type PostsTable = {
   id: string;
-  customer_id: string;
-  name: string;
-  email: string;
-  image_url: string;
+  username: string;
+  topicName: string;
   date: string;
-  amount: number;
-  status: 'pending' | 'paid';
+  contents: string;
 };
 
-export type CustomersTableType = {
-  id: string;
-  name: string;
-  email: string;
-  image_url: string;
-  total_invoices: number;
-  total_pending: number;
-  total_paid: number;
+export type TopicsTableType = {
+    topicName: string;
 };
 
-export type FormattedCustomersTable = {
-  id: string;
-  name: string;
-  email: string;
-  image_url: string;
-  total_invoices: number;
-  total_pending: string;
-  total_paid: string;
+export type FormattedTopicsTable = {
+    topicName: string;
 };
 
-export type CustomerField = {
-  id: string;
-  name: string;
+export type TopicsField = {
+  topicName: string;
 };
 
-export type InvoiceForm = {
-  id: string;
-  customer_id: string;
-  amount: number;
-  status: 'pending' | 'paid';
+export type PostForm = {
+    id: string;
+    username: string;
+    topicName: string;
+    date: string;
+    contents: string;
 };
