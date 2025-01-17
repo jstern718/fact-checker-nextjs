@@ -4,16 +4,6 @@ import { invoices, customers, revenue, users } from '../lib/placeholder-data';
 
 const client = await db.connect();
 
-async function seedDrop() {
-  console.log("seed drop")
-  await client.sql`
-    DROP TABLE IF EXISTS users;
-    DROP TABLE IF EXISTS invoices;
-    DROP TABLE IF EXISTS customers;
-    DROP TABLE IF EXISTS revenue;
-  `;
-}
-
 async function seedUsers() {
   await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
   await client.sql`
@@ -111,16 +101,21 @@ async function seedRevenue() {
   return insertedRevenue;
 }
 
+async function dropTables() {
+  await client.sql`DROP TABLE IF EXISTS users, invoices, customers, revenue CASCADE`;
+}
+
 export async function GET() {
   try {
     await client.sql`BEGIN`;
+    await dropTables();
     await seedUsers();
     await seedCustomers();
     await seedInvoices();
     await seedRevenue();
     await client.sql`COMMIT`;
 
-    return Response.json({ message: 'Database seeded successfully' });
+    return Response.json({ message: 'Database dropped and reseeded successfully' });
   } catch (error) {
     await client.sql`ROLLBACK`;
     return Response.json({ error }, { status: 500 });
