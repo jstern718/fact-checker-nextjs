@@ -7,6 +7,7 @@ import { RevenueChartSkeleton,
         CardsSkeleton
 } from '@/app/ui/skeletons';
 import CardWrapper from '@/app/ui/dashboard/cards';
+import Link from 'next/link';
 
 export default async function Page() {
 
